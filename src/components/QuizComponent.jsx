@@ -127,18 +127,19 @@ function QuizComponent() {
 
   const determineResult = async (correctAnswers) => {
     const updatedUserInfo = { ...userInfo };
+    const passingScore = questions.length === 50 ? 28 : 18; // 50 talik test uchun 28 ta, 30 talik uchun 18 ta
 
-    if (correctAnswers >= 28) {
-      setResultMessage("Tabriklaymiz! Siz testdan o'tdingiz.");
-      updatedUserInfo.result = "O'tdi";
+    if (correctAnswers >= passingScore) {
+        setResultMessage("Tabriklaymiz! Siz testdan o'tdingiz.");
+        updatedUserInfo.result = "O'tdi";
     } else {
-      setResultMessage("Afsuski, siz testdan o'ta olmadingiz.");
-      updatedUserInfo.result = "O'ta olmadi";
+        setResultMessage("Afsuski, siz testdan o'ta olmadingiz.");
+        updatedUserInfo.result = "O'ta olmadi";
     }
     
     setUserInfo(updatedUserInfo);
     await saveUserInfo(updatedUserInfo); // Ma'lumotlarni darhol saqlash
-  };
+};
 
   const handleStartQuiz = async () => {
     try {
