@@ -104,7 +104,8 @@ function QuizComponent() {
       setTimeLeft(30);
     }
 
-    await saveUserInfo(updatedUserInfo);
+    // User ma'lumotlarini darhol saqlash o'rniga kechiktirib saqlaymiz
+    setTimeout(() => saveUserInfo(updatedUserInfo), 2000);
   };
 
   const shuffleArray = (array) => {
@@ -127,19 +128,22 @@ function QuizComponent() {
 
   const determineResult = async (correctAnswers) => {
     const updatedUserInfo = { ...userInfo };
-    const passingScore = questions.length === 50 ? 28 : 18; // 50 talik test uchun 28 ta, 30 talik uchun 18 ta
 
-    if (correctAnswers >= passingScore) {
-        setResultMessage("Tabriklaymiz! Siz testdan o'tdingiz.");
-        updatedUserInfo.result = "O'tdi";
+    // 50 talik va 30 talik testlar uchun shartlarni qo'yamiz
+    if (questions.length === 50 && correctAnswers >= 28) {
+      setResultMessage("Tabriklaymiz! Siz 50 talik testdan o'tdingiz.");
+      updatedUserInfo.result = "O'tdi";
+    } else if (questions.length === 30 && correctAnswers >= 18) {
+      setResultMessage("Tabriklaymiz! Siz 30 talik testdan o'tdingiz.");
+      updatedUserInfo.result = "O'tdi";
     } else {
-        setResultMessage("Afsuski, siz testdan o'ta olmadingiz.");
-        updatedUserInfo.result = "O'ta olmadi";
+      setResultMessage("Afsuski, siz testdan o'ta olmadingiz.");
+      updatedUserInfo.result = "O'ta olmadi";
     }
-    
+
     setUserInfo(updatedUserInfo);
-    await saveUserInfo(updatedUserInfo); // Ma'lumotlarni darhol saqlash
-};
+    setTimeout(() => saveUserInfo(updatedUserInfo), 2000); // Ma'lumotlarni kechiktirib saqlash
+  };
 
   const handleStartQuiz = async () => {
     try {
@@ -162,8 +166,8 @@ function QuizComponent() {
 
   if (!quizStarted) {
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <div className="flex flex-col items-center gap-1">
+      <div className="flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center gap-1">
                 <h2 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900"><mark className="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">Testni</mark> boshlash</h2>
                 <input
                     type="text"
@@ -191,7 +195,7 @@ function QuizComponent() {
                 <p><span class="font-medium text-red-500">Diqqat!</span> Har bir test savoli uchun 30 sekund vaqt belgilangan.</p>
                 <span class="font-medium">Ism va Familyangizni to'g'ri kiritganingizga ishonch hosil qiling!</span>
             </div>
-        </div>
+      </div>
     );
   }
 
@@ -214,19 +218,21 @@ function QuizComponent() {
     <div className="p-[260px_0] flex justify-center">
       <div className="w-[520px] border-[1px] p-6 flex flex-col items-start">
         <div className="flex items-center justify-between w-full">
-            <p>Savol: {currentQuestionIndex + 1}</p>
-            <p>Qolgan vaqt: {timeLeft} soniya</p>
+          <p>Savol: {currentQuestionIndex + 1}</p>
+          <p>Qolgan vaqt: {timeLeft} soniya</p>
         </div>
         <div className="flex flex-col text-left mt-4 w-full items-start">
-            <h3 className="text-[18px] font-bold">{currentQuestion.question}</h3>
-            <div className="w-full h-[1px] m-[10px_0] bg-slate-500"></div>
-            <ul className="flex flex-col items-start gap-1">
-                {currentQuestion.choices.map((choice, index) => (
-                    <li key={index} className="text-lg font-normal text-gray-500">
-                        <button onClick={() => handleAnswer(choice)} key={index} className="hover:text-green-700 hover:font-semibold">{`${index + 1}. ${choice}`}</button>
-                    </li>
-                ))}
-            </ul>
+          <h3 className="text-[18px] font-bold">{currentQuestion.question}</h3>
+          <div className="w-full h-[1px] m-[10px_0] bg-slate-500"></div>
+          <ul className="flex flex-col items-start gap-1">
+            {currentQuestion.choices.map((choice, index) => (
+              <li key={index} className="text-lg font-normal text-gray-500">
+                <button className="hover:underline" onClick={() => handleAnswer(choice)}>
+                  {choice}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
