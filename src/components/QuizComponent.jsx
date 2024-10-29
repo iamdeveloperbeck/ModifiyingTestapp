@@ -131,10 +131,10 @@ function QuizComponent() {
 
     // 50 talik va 30 talik testlar uchun shartlarni qo'yamiz
     if (questions.length === 50 && correctAnswers >= 28) {
-      setResultMessage("Tabriklaymiz! Siz 50 talik testdan o'tdingiz.");
+      setResultMessage("Tabriklaymiz! Siz testdan o'tdingiz.");
       updatedUserInfo.result = "O'tdi";
     } else if (questions.length === 30 && correctAnswers >= 18) {
-      setResultMessage("Tabriklaymiz! Siz 30 talik testdan o'tdingiz.");
+      setResultMessage("Tabriklaymiz! Siz testdan o'tdingiz.");
       updatedUserInfo.result = "O'tdi";
     } else {
       setResultMessage("Afsuski, siz testdan o'ta olmadingiz.");
