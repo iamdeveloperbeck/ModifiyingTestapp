@@ -171,14 +171,14 @@ function QuizComponent() {
                 <h2 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900"><mark className="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">Testni</mark> boshlash</h2>
                 <input
                     type="text"
-                    placeholder="Ism"
+                    placeholder="Ism(Исмингиз)"
                     value={userInfo.firstName}
                     onChange={(e) => setUserInfo({ ...userInfo, firstName: e.target.value })}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
                 <input
                     type="text"
-                    placeholder="Familya"
+                    placeholder="Familya(Фамилиянгиз)"
                     value={userInfo.lastName}
                     onChange={(e) => setUserInfo({ ...userInfo, lastName: e.target.value })}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
